@@ -42,7 +42,24 @@ const translations = {
     language_Latín: "Latín",
     language_Portugués: "Portugués",
     language_Vasco: "Vasco",
-    language_Otro: "Otro"
+    language_Otro: "Otro",
+    categories: {
+  "Todos": "Todos",
+  "Entrada": "Entrada",
+  "Penitencia": "Penitencia",
+  "Gloria": "Gloria",
+  "Aleluya": "Aleluya",
+  "Credo": "Credo",
+  "Ofertorio": "Ofertorio",
+  "Santo": "Santo",
+  "Padre Nuestro": "Padre Nuestro",
+  "Paz": "Paz",
+  "Cordero de Dios": "Cordero de Dios",
+  "Comunión": "Comunión",
+  "Salida": "Salida",
+  "Marianas": "Marianas",
+  "Espíritu Santo": "Espíritu Santo"
+}
   },
   English: {
     appTitle: "Liturgical Songbook",
@@ -87,8 +104,25 @@ const translations = {
     language_Latín: "Latin",
     language_Portugués: "Portuguese",
     language_Vasco: "Basque",
-    language_Otro: "Other"
-  },
+    language_Otro: "Other",
+  categories: {
+  "Todos": "All",
+  "Entrada": "Entrance",
+  "Penitencia": "Penitential Act",
+  "Gloria": "Gloria",
+  "Aleluya": "Alleluia",
+  "Credo": "Creed",
+  "Ofertorio": "Offertory",
+  "Santo": "Holy (Sanctus)",
+  "Padre Nuestro": "Our Father",
+  "Paz": "Peace",
+  "Cordero de Dios": "Lamb of God",
+  "Comunión": "Communion",
+  "Salida": "Recessional",
+  "Marianas": "Marian",
+  "Espíritu Santo": "Holy Spirit"
+}
+},
   German: {
   appTitle: "Liturgisches Gesangbuch",
   appSubtitle: "Lieder für jeden Moment der Heiligen Messe", // Alemán
@@ -131,7 +165,24 @@ const translations = {
   language_Latín: "Latein",
   language_Portugués: "Portugiesisch",
   language_Vasco: "Baskisch",
-  language_Otro: "Andere"
+  language_Otro: "Andere",
+categories: {
+  "Todos": "Alle",
+  "Entrada": "Einzug",
+  "Penitencia": "Bußakt",
+  "Gloria": "Gloria",
+  "Aleluya": "Halleluja",
+  "Credo": "Glaubensbekenntnis",
+  "Ofertorio": "Gabenbereitung",
+  "Santo": "Heilig (Sanctus)",
+  "Padre Nuestro": "Vaterunser",
+  "Paz": "Friedensgruß",
+  "Cordero de Dios": "Agnus Dei",
+  "Comunión": "Kommunion",
+  "Salida": "Schlusslied",
+  "Marianas": "Marienlieder",
+  "Espíritu Santo": "Heiliger Geist"
+}
 },
 French: {
   appTitle: "Recueil Liturgique",
@@ -175,7 +226,25 @@ French: {
   language_Latín: "Latin",
   language_Portugués: "Portugais",
   language_Vasco: "Basque",
-  language_Otro: "Autre"
+  language_Otro: "Autre",
+  categories: {
+  "Todos": "Tous",
+  "Entrada": "Entrée",
+  "Penitencia": "Acte pénitentiel",
+  "Gloria": "Gloire (Gloria)",
+  "Aleluya": "Alléluia",
+  "Credo": "Credo",
+  "Ofertorio": "Offertoire",
+  "Santo": "Saint (Sanctus)",
+  "Padre Nuestro": "Notre Père",
+  "Paz": "Paix",
+  "Cordero de Dios": "Agneau de Dieu",
+  "Comunión": "Communion",
+  "Salida": "Sortie",
+  "Marianas": "Mariales",
+  "Espíritu Santo": "Esprit Saint"
+}
+
 },
 Italian: {
   appTitle: "Cantico Liturgico",
@@ -219,7 +288,25 @@ Italian: {
   language_Latín: "Latino",
   language_Portugués: "Portoghese",
   language_Vasco: "Basco",
-  language_Otro: "Altro"
+  language_Otro: "Altro",
+  categories: {
+  "Todos": "Tutti",
+  "Entrada": "Ingresso",
+  "Penitencia": "Atto penitenziale",
+  "Gloria": "Gloria",
+  "Aleluya": "Alleluia",
+  "Credo": "Credo",
+  "Ofertorio": "Offertorio",
+  "Santo": "Santo",
+  "Padre Nuestro": "Padre Nostro",
+  "Paz": "Pace",
+  "Cordero de Dios": "Agnello di Dio",
+  "Comunión": "Comunione",
+  "Salida": "Canto finale",
+  "Marianas": "Mariani",
+  "Espíritu Santo": "Spirito Santo"
+}
+
 },
 Latin: {
   appTitle: "Cantus Liturgicus",
@@ -263,7 +350,25 @@ Latin: {
   language_Latín: "Latine",
   language_Portugués: "Lusitanice",
   language_Vasco: "Vasconice",
-  language_Otro: "Aliud"
+  language_Otro: "Aliud",
+  categories: {
+  "Todos": "Tutti",
+  "Entrada": "Ingresso",
+  "Penitencia": "Atto penitenziale",
+  "Gloria": "Gloria",
+  "Aleluya": "Alleluia",
+  "Credo": "Credo",
+  "Ofertorio": "Offertorio",
+  "Santo": "Santo",
+  "Padre Nuestro": "Padre Nostro",
+  "Paz": "Pace",
+  "Cordero de Dios": "Agnello di Dio",
+  "Comunión": "Comunione",
+  "Salida": "Canto finale",
+  "Marianas": "Mariani",
+  "Espíritu Santo": "Spirito Santo"
+}
+
 },
 Catalan: {
   appTitle: "Cançoner Litúrgic",
@@ -307,7 +412,25 @@ Catalan: {
   language_Latín: "Llatí",
   language_Portugués: "Portuguès",
   language_Vasco: "Basc",
-  language_Otro: "Altres"
+  language_Otro: "Altres",
+  categories: {
+  "Todos": "Tots",
+  "Entrada": "Entrada",
+  "Penitencia": "Acte penitencial",
+  "Gloria": "Glòria",
+  "Aleluya": "Al·leluia",
+  "Credo": "Creu",
+  "Ofertorio": "Ofertori",
+  "Santo": "Sant",
+  "Padre Nuestro": "Pare Nostre",
+  "Paz": "Pau",
+  "Cordero de Dios": "Anyell de Déu",
+  "Comunión": "Comunió",
+  "Salida": "Sortida",
+  "Marianas": "Marianes",
+  "Espíritu Santo": "Esperit Sant"
+}
+
 },
 Basque: {
   appTitle: "Liturgia Abesti-liburua",
@@ -351,7 +474,25 @@ Basque: {
   language_Latín: "Latina",
   language_Portugués: "Portugesa",
   language_Vasco: "Euskara",
-  language_Otro: "Beste batzuk"
+  language_Otro: "Beste batzuk",
+  categories: {
+  "Todos": "Guztiak",
+  "Entrada": "Sarrera",
+  "Penitencia": "Penitentzia ekintza",
+  "Gloria": "Aintza",
+  "Aleluya": "Haleluia",
+  "Credo": "Sinbolo apostolikoa",
+  "Ofertorio": "Ofertorioa",
+  "Santo": "Santu",
+  "Padre Nuestro": "Aita Gurea",
+  "Paz": "Bakea",
+  "Cordero de Dios": "Jainkoaren Bildotsa",
+  "Comunión": "Komunioa",
+  "Salida": "Amaierako kanta",
+  "Marianas": "Marianoak",
+  "Espíritu Santo": "Espiritu Santua"
+}
+
 },
 Galician: {
   appTitle: "Cancioneiro Litúrxico",
@@ -395,7 +536,25 @@ Galician: {
   language_Latín: "Latín",
   language_Portugués: "Portugués",
   language_Vasco: "Éuscaro",
-  language_Otro: "Outro"
+  language_Otro: "Outro",
+  categories: {
+  "Todos": "Todos",
+  "Entrada": "Entrada",
+  "Penitencia": "Acto penitencial",
+  "Gloria": "Gloria",
+  "Aleluya": "Aleluia",
+  "Credo": "Credo",
+  "Ofertorio": "Ofertorio",
+  "Santo": "Santo",
+  "Padre Nuestro": "Pai Noso",
+  "Paz": "Paz",
+  "Cordero de Dios": "Cordeiro de Deus",
+  "Comunión": "Comuñón",
+  "Salida": "Saída",
+  "Marianas": "Marianas",
+  "Espíritu Santo": "Espírito Santo"
+}
+
 },
 Portuguese: {
   appTitle: "Cancioneiro Litúrgico",
@@ -439,7 +598,25 @@ Portuguese: {
   language_Latín: "Latim",
   language_Portugués: "Português",
   language_Vasco: "Basco",
-  language_Otro: "Outro"
+  language_Otro: "Outro",
+  categories: {
+  "Todos": "Todos",
+  "Entrada": "Entrada",
+  "Penitencia": "Ato penitencial",
+  "Gloria": "Glória",
+  "Aleluya": "Aleluia",
+  "Credo": "Credo",
+  "Ofertorio": "Ofertório",
+  "Santo": "Santo",
+  "Padre Nuestro": "Pai-Nosso",
+  "Paz": "Paz",
+  "Cordero de Dios": "Cordeiro de Deus",
+  "Comunión": "Comunhão",
+  "Salida": "Saída",
+  "Marianas": "Marianas",
+  "Espíritu Santo": "Espírito Santo"
+}
+
 }
 };
 
