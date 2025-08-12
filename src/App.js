@@ -177,7 +177,7 @@ const App = () => {
         {/* Pestañas de categorías */}
         <div className="mb-8">
           <SongFilter
-            categories={categories}            {/* ✅ aquí van TODAS */}
+            categories={categories}           
             onFilterChange={handleFilterChange}
             currentLanguage={currentLanguage}
           />
