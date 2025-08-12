@@ -1,6 +1,7 @@
 import React from 'react';
 import { translateCategory } from '../utils/i18n';
 import translations from '../utils/translations';
+import { sanitizeUrl } from '../utils/links';
 
 const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, currentLanguage }) => {
   const t = translations[currentLanguage] || translations['Español'];
@@ -21,7 +22,45 @@ const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, curr
             {translateCategory(song?.category, currentLanguage)}
           </span>
         )}
+
+        {/* Enlaces: Spotify / YouTube / Partitura */}
+        <div className="flex flex-wrap gap-2 mt-2">
+          {song.spotify && (
+            <a
+              href={sanitizeUrl(song.spotify)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs px-2 py-1 rounded bg-green-100 text-green-800 hover:bg-green-200"
+              title={t.listenOnSpotify}
+            >
+              Spotify
+            </a>
+          )}
+          {song.youtube && (
+            <a
+              href={sanitizeUrl(song.youtube)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs px-2 py-1 rounded bg-red-100 text-red-800 hover:bg-red-200"
+              title={t.watchOnYouTube}
+            >
+              YouTube
+            </a>
+          )}
+          {song.sheetMusic && (
+            <a
+              href={sanitizeUrl(song.sheetMusic)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-800 hover:bg-blue-200"
+              title={t.viewSheetMusic}
+            >
+              {t.viewSheetMusic}
+            </a>
+          )}
+        </div>
       </div>
+
       <div className="flex items-center space-x-3 ml-4">
         <button
           onClick={() => onShowDetail(song)}

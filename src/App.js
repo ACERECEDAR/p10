@@ -70,6 +70,12 @@ const App = () => {
             row.selected === 'TRUE' ||
             row.seleccionado === 'TRUE' ||
             false,
+             spotify: row.spotify || row.spotify_link || row.Spotify || row.link_spotify || '',
+  youtube: row.youtube || row.youtube_link || row.YouTube || row.link_youtube || '',
+  sheetMusic:
+    row.sheetMusic || row.sheet_music || row.partitura || row.partition ||
+    row.score || row.pdf_url || row.sheet || '',
+
           ...row
         }));
         setSongsList(normalized);
