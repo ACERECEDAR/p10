@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import SheetMusicViewer from './SheetMusicViewer';
 import translations from '../utils/translations';
+import { sanitizeUrl } from '../utils/links';
+import { translateCategory } from '../utils/i18n';
 
 const SongDetailModal = ({ song, onClose, currentLanguage }) => { // Se elimina onEditSong de los props
   const [showSheetMusic, setShowSheetMusic] = useState(false);
@@ -8,10 +10,16 @@ const SongDetailModal = ({ song, onClose, currentLanguage }) => { // Se elimina 
 
   const t = translations[currentLanguage] || translations['Español'];
 
-  const missingSpotify = !song.spotifyLink;
-  const missingYoutube = !song.youtubeLink;
-  const missingSheetMusic = !song.sheetMusicLink;
-  const missingLyrics = !song.lyrics;
+  // Soportar nombres antiguos (…Link) y los normalizados (sin Link)
+const spotify   = song.spotify     || song.spotifyLink     || '';
+const youtube   = song.youtube     || song.youtubeLink     || '';
+const sheetUrl  = song.sheetMusic  || song.sheetMusicLink  || '';
+
+const hasSpotify = !!spotify;
+const hasYouTube = !!youtube;
+const hasSheet   = !!sheetUrl;
+const hasLyrics  = !!song?.lyrics;
+
 
   if (!song) return null;
 
@@ -33,7 +41,8 @@ const SongDetailModal = ({ song, onClose, currentLanguage }) => { // Se elimina 
         <div className="p-6 space-y-6">
           <div className="flex flex-wrap gap-2">
             <span className="inline-block bg-gray-200 rounded-full px-4 py-1 text-sm font-semibold text-gray-700">
-              {song.category}
+             {translateCategory(song?.category, currentLanguage)}
+
             </span>
             {song.language && (
               <span className="inline-block bg-gray-200 rounded-full px-4 py-1 text-sm font-semibold text-gray-700">
@@ -42,48 +51,56 @@ const SongDetailModal = ({ song, onClose, currentLanguage }) => { // Se elimina 
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a 
-              href={song.spotifyLink} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={`flex items-center p-3 rounded-lg transition-colors ${
-                missingSpotify ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-green-50 hover:bg-green-100 text-green-700'
-              }`}
-              onClick={(e) => missingSpotify && e.preventDefault()}
-            >
-              <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.56 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-              </svg>
-              <span className="font-medium">{t.listenOnSpotify}</span>
-            </a>
-            <a 
-              href={song.youtubeLink} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={`flex items-center p-3 rounded-lg transition-colors ${
-                missingYoutube ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-red-50 hover:bg-red-100 text-red-700'
-              }`}
-              onClick={(e) => missingYoutube && e.preventDefault()}
-            >
-              <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-              </svg>
-              <span className="font-medium">{t.watchOnYouTube}</span>
-            </a>
-            <button
-              onClick={() => !missingSheetMusic && setShowSheetMusic(true)}
-              className={`flex items-center p-3 rounded-lg transition-colors w-full ${
-                missingSheetMusic ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-blue-50 hover:bg-blue-100 text-blue-700'
-              }`}
-              disabled={missingSheetMusic}
-            >
-              <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-              </svg>
-              <span className="font-medium">{t.viewSheetMusic}</span>
-            </button>
-          </div>
+          {hasSpotify ? (
+  <a
+    href={sanitizeUrl(spotify)}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition"
+  >
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0a12 12 0 1012 12A12.013 12.013 0 0012 0zm5.485 17.278a.749.749 0 01-1.03.262c-2.819-1.726-6.366-2.115-10.548-1.16a.75.75 0 11-.33-1.464c4.53-1.022 8.428-.58 11.5 1.318a.75.75 0 01.408 1.044zm1.373-3.062a.938.938 0 01-1.291.327c-3.229-1.922-8.155-2.486-11.973-1.364a.938.938 0 11-.52-1.804c4.266-1.23 9.639-.6 13.334 1.606a.938.938 0 01.45 1.235zm.13-3.212a1.125 1.125 0 01-1.548.392c-3.695-2.243-9.333-2.446-12.688-1.34a1.125 1.125 0 01-.69-2.15c3.9-1.253 10.183-1.01 14.393 1.545a1.125 1.125 0 01.533 1.553z"/></svg>
+    {t.listenOnSpotify}
+  </a>
+) : (
+  <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 text-gray-400 cursor-not-allowed" disabled>
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0a12 12 0 1012 12A12.013 12.013 0 0012 0zm5.485 17.278a.749.749 0 01-1.03.262c-2.819-1.726-6.366-2.115-10.548-1.16a.75.75 0 11-.33-1.464c4.53-1.022 8.428-.58 11.5 1.318a.75.75 0 01.408 1.044zm1.373-3.062a.938.938 0 01-1.291.327c-3.229-1.922-8.155-2.486-11.973-1.364a.938.938 0 11-.52-1.804c4.266-1.23 9.639-.6 13.334 1.606a.938.938 0 01.45 1.235zm.13-3.212a1.125 1.125 0 01-1.548.392c-3.695-2.243-9.333-2.446-12.688-1.34a1.125 1.125 0 01-.69-2.15c3.9-1.253 10.183-1.01 14.393 1.545a1.125 1.125 0 01.533 1.553z"/></svg>
+    {t.listenOnSpotify}
+  </button>
+)}
+
+           {hasYouTube ? (
+  <a
+    href={sanitizeUrl(youtube)}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
+  >
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.004 3.004 0 00-2.117-2.123C19.633 3.5 12 3.5 12 3.5s-7.633 0-9.381.563A3.004 3.004 0 00.502 6.186C0 7.94 0 12 0 12s0 4.06.502 5.814a3.004 3.004 0 002.117 2.123C4.367 20.5 12 20.5 12 20.5s7.633 0 9.381-.563a3.004 3.004 0 002.117-2.123C24 16.06 24 12 24 12s0-4.06-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    {t.watchOnYouTube}
+  </a>
+) : (
+  <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 text-gray-400 cursor-not-allowed" disabled>
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.004 3.004 0 00-2.117-2.123C19.633 3.5 12 3.5 12 3.5s-7.633 0-9.381.563A3.004 3.004 0 00.502 6.186C0 7.94 0 12 0 12s0 4.06.502 5.814a3.004 3.004 0 002.117 2.123C4.367 20.5 12 20.5 12 20.5s7.633 0 9.381-.563a3.004 3.004 0 002.117-2.123C24 16.06 24 12 24 12s0-4.06-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    {t.watchOnYouTube}
+  </button>
+)}
+{hasSheet ? (
+  <a
+    href={sanitizeUrl(sheetUrl)}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+  >
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M6 2a2 2 0 00-2 2v16l6-3 6 3V4a2 2 0 00-2-2H6z"/></svg>
+    {t.viewSheetMusic}
+  </a>
+) : (
+  <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 text-gray-400 cursor-not-allowed" disabled>
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M6 2a2 2 0 00-2 2v16l6-3 6 3V4a2 2 0 00-2-2H6z"/></svg>
+    {t.viewSheetMusic}
+  </button>
+)}
+
 
           {song.lyrics && (
             <div>
