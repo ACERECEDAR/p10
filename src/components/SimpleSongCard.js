@@ -1,4 +1,5 @@
 import React from 'react';
+import { translateCategory } from '../utils/i18n';
 import translations from '../utils/translations';
 
 const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, currentLanguage }) => {
@@ -17,7 +18,7 @@ const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, curr
         </h3>
         {showCategory && (
           <span className="inline-block bg-gray-100 rounded-full px-2 py-0.5 text-xs font-medium text-gray-600 mt-1">
-            {song.category}
+            {translateCategory(song?.category, currentLanguage)}
           </span>
         )}
       </div>
