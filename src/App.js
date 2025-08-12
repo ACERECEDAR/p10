@@ -24,18 +24,19 @@ const App = () => {
   const ALL_CATEGORIES = [
     'Todos',
     'Entrada',
-    'Penitencial',
-    'Gloria',
+    'Penitencia',
+    'Gloria', // Nueva categoría
     'Aleluya',
+    'Credo',
     'Ofertorio',
     'Santo',
+    'Padre Nuestro',
     'Paz',
-    'Cordero',
+    'Cordero de Dios',
     'Comunión',
-    'Final',
-    'Marianos',
-    'Espíritu Santo',
-    'Otro'
+    'Salida',
+    'Marianas',
+    'Espíritu Santo'
   ];
 
   // Lista fija de idiomas (como ya tenías)

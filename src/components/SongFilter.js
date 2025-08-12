@@ -25,7 +25,8 @@ const SongFilter = ({ categories, onFilterChange, currentLanguage }) => {
     'Cordero de Dios',
     'Comunión',
     'Salida',
-    'Virgen'
+    'Marianas',
+    'Espíritu Santo'
   ];
 
   const orderedCategories = categoryOrder.filter(cat => 
