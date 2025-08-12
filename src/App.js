@@ -26,7 +26,6 @@ const App = () => {
     'Entrada',
     'Penitencial',
     'Gloria',
-   
     'Aleluya',
     'Ofertorio',
     'Santo',
@@ -35,7 +34,6 @@ const App = () => {
     'Comunión',
     'Final',
     'Marianos',
-    
     'Espíritu Santo',
     'Otro'
   ];
