@@ -17,7 +17,7 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
           <h3
             className="text-xl font-bold text-gray-900 cursor-pointer hover:text-gray-700"
             onClick={() => onShowDetail && onShowDetail(song)}
-}
+
           >
             {song.title}
           </h3>
