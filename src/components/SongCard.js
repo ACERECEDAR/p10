@@ -16,7 +16,8 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
         <div className="flex-1 min-w-0">
           <h3
             className="text-xl font-bold text-gray-900 cursor-pointer hover:text-gray-700"
-            onClick={() => onShowDetail?.(song)}
+            onClick={() => onShowDetail && onShowDetail(song)}
+}
           >
             {song.title}
           </h3>
@@ -77,7 +78,8 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
         {/* Botones de acciones */}
         <div className="flex items-center gap-3">
           <button
-            onClick={() => onShowDetail?.(song)}
+            onClick={() => onShowDetail && onShowDetail(song)}
+
             className="p-2 text-gray-600 hover:text-black transition-colors"
             title={t.viewDetails}
           >

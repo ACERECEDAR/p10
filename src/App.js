@@ -213,33 +213,30 @@ const App = () => {
         {/* Lista de cantos */}
         <div className="grid gap-4">
           {filteredSongs.length > 0 ? (
-            filteredSongs.map((song) =>
-              song.selected ? (
-                <SongCard
-                  key={song.id}
-                  song={song}
-                  onToggleSelect={toggleSongSelection}
-                  currentLanguage={currentLanguage}
-                />
-              ) : (
-                <SimpleSongCard
-                  key={song.id}
-                  song={song}
-                  onToggleSelect={toggleSongSelection}
-                  onShowDetail={() => handleShowDetail(song)}
-                  showCategory={activeCategory === 'Todos'}
-                  currentLanguage={currentLanguage}
-                />
-              )
-            )
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-gray-500">
-                {/* Mensaje cuando una categoría está vacía */}
-                No hay cantos en esta categoría todavía.
-              </p>
-            </div>
-          )}
+  filteredSongs.map((song) =>
+    song.selected ? (
+      <SongCard
+        key={song.id}
+        song={song}
+        onToggleSelect={toggleSongSelection}
+        onShowDetail={() => handleShowDetail(song)}   // ← Añadido
+        currentLanguage={currentLanguage}
+      />
+    ) : (
+      <SimpleSongCard
+        key={song.id}
+        song={song}
+        onToggleSelect={toggleSongSelection}
+        onShowDetail={() => handleShowDetail(song)}
+        showCategory={activeCategory === 'Todos'}
+        currentLanguage={currentLanguage}
+      />
+    )
+  )
+) : (
+  <p>No hay cantos disponibles.</p>
+)}
+
         </div>
       </div>
 
