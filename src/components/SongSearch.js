@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import translations from '../utils/translations';
 
 const SongSearch = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -8,13 +9,15 @@ const SongSearch = ({ onSearch }) => {
     setSearchTerm(term);
     onSearch(term);
   };
+const t = translations[currentLanguage] || translations['Español'];
 
   return (
     <div className="w-full mb-4"> {/* Asegurar que ocupe todo el ancho */}
       <div className="relative">
         <input
           type="text"
-          placeholder="Buscar cantos..."
+          placeholder={t.searchPlaceholder || "Buscar canto"}
+          aria-label={t.searchPlaceholder || "Buscar canto"}
           value={searchTerm}
           onChange={handleSearch}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent transition-all"

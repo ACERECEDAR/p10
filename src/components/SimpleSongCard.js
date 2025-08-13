@@ -6,6 +6,7 @@ import { FaSpotify, FaYoutube, FaMusic } from 'react-icons/fa';
 
 const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, currentLanguage }) => {
   const t = translations[currentLanguage] || translations['Español'];
+const tLangs = translations[currentLanguage]?.languages || {};
 
   return (
     <div className={`bg-white rounded-xl shadow-lg p-4 flex items-center justify-between hover:shadow-xl transition-all duration-300 ${
@@ -27,10 +28,11 @@ const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, curr
             </span>
           )}
           {song.language && (
-            <span className="inline-block bg-yellow-100 text-yellow-800 rounded-full px-2 py-0.5 text-xs font-medium">
-              {song.language}
-            </span>
-          )}
+  <span className="inline-block bg-yellow-100 text-yellow-800 rounded-full px-2 py-0.5 text-xs font-medium">
+    {tLangs[song.language] || song.language}
+  </span>
+)}
+
         </div>
 
         {/* Enlaces con iconos */}

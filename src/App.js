@@ -160,7 +160,8 @@ const App = () => {
 
         {/* Buscador */}
         <div className="mb-4">
-          <SongSearch onSearch={handleSearch} />
+          <SongSearch onSearch={handleSearch} currentLanguage={currentLanguage} />
+
         </div>
 
         {/* Filtros */}

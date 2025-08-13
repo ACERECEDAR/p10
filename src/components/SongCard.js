@@ -7,7 +7,7 @@ import { sanitizeUrl } from '../utils/links';
 import { FaSpotify, FaYoutube, FaMusic } from 'react-icons/fa';
 
 export default function SongCard({ song, onToggleSelect, onShowDetail, currentLanguage }) {
-  const t = translations[currentLanguage] || translations['Español'];
+  const tLangs = translations[currentLanguage]?.languages || {};
   if (!song) return null;
 
   return (
@@ -29,11 +29,11 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
                 {translateCategory(song.category, currentLanguage)}
               </span>
             )}
-            {song.language && (
-              <span className="inline-block bg-yellow-100 text-yellow-800 rounded-full px-2 py-0.5 text-xs font-medium">
-                {song.language}
-              </span>
-            )}
+       {song.language && (
+  <span className="inline-block bg-yellow-100 text-yellow-800 rounded-full px-2 py-0.5 text-xs font-medium">
+    {tLangs[song.language] || song.language}
+  </span>
+)}
           </div>
 
           {/* Enlaces con iconos */}
