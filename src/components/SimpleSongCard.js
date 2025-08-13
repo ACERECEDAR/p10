@@ -13,12 +13,13 @@ const tLangs = translations[currentLanguage]?.languages || {};
       song.selected ? 'ring-2 ring-yellow-400' : ''
     }`}>
       <div className="flex-1 min-w-0">
-        <h3
-  className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-gray-700 uppercase"
+        <h3 
+  className="text-lg font-semibold text-gray-900 cursor-pointer hover:text-gray-700"
   onClick={() => onShowDetail(song)}
 >
   {song.title}
 </h3>
+
 
 
         {/* Chips de categoría e idioma */}

@@ -17,12 +17,13 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
       <div className="flex items-start justify-between gap-4">
         {/* Título + chips */}
         <div className="flex-1 min-w-0">
-          <h3
-  className="text-xl font-bold text-gray-900 cursor-pointer hover:text-gray-700 uppercase"
+          <h3 
+  className="text-xl font-bold text-gray-900 cursor-pointer hover:text-gray-700"
   onClick={() => onShowDetail && onShowDetail(song)}
 >
   {song.title}
 </h3>
+
 
 
           <div className="flex flex-wrap gap-2 mt-2">
