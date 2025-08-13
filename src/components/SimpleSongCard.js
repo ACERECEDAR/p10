@@ -2,6 +2,7 @@ import React from 'react';
 import { translateCategory } from '../utils/i18n';
 import translations from '../utils/translations';
 import { sanitizeUrl } from '../utils/links';
+import { FaSpotify, FaYoutube, FaMusic } from 'react-icons/fa';
 
 const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, currentLanguage }) => {
   const t = translations[currentLanguage] || translations['Español'];
@@ -17,23 +18,32 @@ const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, curr
         >
           {song.title}
         </h3>
-        {showCategory && (
-          <span className="inline-block bg-gray-100 rounded-full px-2 py-0.5 text-xs font-medium text-gray-600 mt-1">
-            {translateCategory(song?.category, currentLanguage)}
-          </span>
-        )}
 
-        {/* Enlaces: Spotify / YouTube / Partitura */}
+        {/* Chips de categoría e idioma */}
+        <div className="flex flex-wrap gap-2 mt-1">
+          {showCategory && (
+            <span className="inline-block bg-gray-100 rounded-full px-2 py-0.5 text-xs font-medium text-gray-600">
+              {translateCategory(song?.category, currentLanguage)}
+            </span>
+          )}
+          {song.language && (
+            <span className="inline-block bg-yellow-100 text-yellow-800 rounded-full px-2 py-0.5 text-xs font-medium">
+              {song.language}
+            </span>
+          )}
+        </div>
+
+        {/* Enlaces con iconos */}
         <div className="flex flex-wrap gap-2 mt-2">
           {song.spotify && (
             <a
               href={sanitizeUrl(song.spotify)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs px-2 py-1 rounded bg-green-100 text-green-800 hover:bg-green-200"
+              className="p-1 rounded bg-green-100 text-green-700 hover:bg-green-200"
               title={t.listenOnSpotify}
             >
-              Spotify
+              <FaSpotify size={16} />
             </a>
           )}
           {song.youtube && (
@@ -41,10 +51,10 @@ const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, curr
               href={sanitizeUrl(song.youtube)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs px-2 py-1 rounded bg-red-100 text-red-800 hover:bg-red-200"
+              className="p-1 rounded bg-red-100 text-red-700 hover:bg-red-200"
               title={t.watchOnYouTube}
             >
-              YouTube
+              <FaYoutube size={16} />
             </a>
           )}
           {song.sheetMusic && (
@@ -52,10 +62,10 @@ const SimpleSongCard = ({ song, onToggleSelect, onShowDetail, showCategory, curr
               href={sanitizeUrl(song.sheetMusic)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-800 hover:bg-blue-200"
+              className="p-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200"
               title={t.viewSheetMusic}
             >
-              {t.viewSheetMusic}
+              <FaMusic size={16} />
             </a>
           )}
         </div>
