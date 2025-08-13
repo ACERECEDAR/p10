@@ -60,11 +60,16 @@ const App = () => {
       .then((res) => res.json())
       .then((data) => {
         // Normalizamos por si las columnas usan otros nombres
-        const normalized = (Array.isArray(data) ? data : []).map((row, idx) => ({
-          id: row.id || row.ID || idx + 1,
-          title: row.title || row.titulo || row.name || 'Sin título',
-          category: row.category || row.categoria || 'Otro',
-          language: row.language || row.idioma || 'Español',
+       const toTitleCase = (str) =>
+  String(str ?? '')
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
+const normalized = (Array.isArray(data) ? data : []).map((row, idx) => ({
+  id: row.id || row.ID || idx + 1,
+  title: toTitleCase(row.title || row.titulo || row.name || 'Sin título'),
+  category: row.category || row.categoria || 'Otro',
+  language: row.language || row.idioma || 'Español',
           selected:
             row.selected === true ||
             row.selected === 'TRUE' ||
