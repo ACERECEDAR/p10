@@ -18,11 +18,12 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
         {/* Título + chips */}
         <div className="flex-1 min-w-0">
           <h3
-            className="text-xl font-bold text-gray-900 cursor-pointer hover:text-gray-700"
-            onClick={() => onShowDetail && onShowDetail(song)}
-          >
-            {song.title}
-          </h3>
+  className="text-xl font-bold text-gray-900 cursor-pointer hover:text-gray-700 uppercase"
+  onClick={() => onShowDetail && onShowDetail(song)}
+>
+  {song.title}
+</h3>
+
 
           <div className="flex flex-wrap gap-2 mt-2">
             {song.category && (
