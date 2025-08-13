@@ -162,6 +162,7 @@ const App = () => {
         <div className="mb-4">
           <SongSearch onSearch={handleSearch} currentLanguage={currentLanguage} />
 
+
         </div>
 
         {/* Filtros */}
