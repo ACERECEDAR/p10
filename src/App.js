@@ -218,12 +218,12 @@ const App = () => {
   filteredSongs.map((song) =>
     song.selected ? (
       <SongCard
-        key={song.id}
-        song={song}
-        onToggleSelect={toggleSongSelection}
-        onShowDetail={() => handleShowDetail(song)}   // ← Añadido
-        currentLanguage={currentLanguage}
-      />
+  key={song.id}
+  song={song}
+  onToggleSelect={toggleSongSelection}
+  onShowDetail={() => handleShowDetail(song)}
+  currentLanguage={currentLanguage}
+/>
     ) : (
       <SimpleSongCard
         key={song.id}
