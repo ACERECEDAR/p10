@@ -1,12 +1,13 @@
 // src/components/SongCard.jsx
+// src/components/SongCard.jsx
 import React from 'react';
 import translations from '../utils/translations';
 import { translateCategory } from '../utils/i18n';
 import { sanitizeUrl } from '../utils/links';
+import { FaSpotify, FaYoutube, FaMusic } from 'react-icons/fa';
 
 export default function SongCard({ song, onToggleSelect, onShowDetail, currentLanguage }) {
   const t = translations[currentLanguage] || translations['Español'];
-
   if (!song) return null;
 
   return (
@@ -17,37 +18,35 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
           <h3
             className="text-xl font-bold text-gray-900 cursor-pointer hover:text-gray-700"
             onClick={() => onShowDetail && onShowDetail(song)}
-
           >
             {song.title}
           </h3>
 
+          {/* Chips: categoría (gris) + idioma (amarillo) */}
           <div className="flex flex-wrap gap-2 mt-2">
-            {/* Categoría traducida */}
             {song.category && (
               <span className="inline-block bg-gray-100 rounded-full px-2 py-0.5 text-xs font-medium text-gray-600">
                 {translateCategory(song.category, currentLanguage)}
               </span>
             )}
-            {/* Idioma si viene */}
             {song.language && (
-              <span className="inline-block bg-gray-100 rounded-full px-2 py-0.5 text-xs font-medium text-gray-600">
+              <span className="inline-block bg-yellow-100 text-yellow-800 rounded-full px-2 py-0.5 text-xs font-medium">
                 {song.language}
               </span>
             )}
           </div>
 
-          {/* Enlaces: Spotify / YouTube / Partitura */}
+          {/* Enlaces con iconos */}
           <div className="flex flex-wrap gap-2 mt-3">
             {song.spotify && (
               <a
                 href={sanitizeUrl(song.spotify)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs px-2 py-1 rounded bg-green-100 text-green-800 hover:bg-green-200"
+                className="p-1 rounded bg-green-100 text-green-700 hover:bg-green-200"
                 title={t.listenOnSpotify}
               >
-                Spotify
+                <FaSpotify size={16} />
               </a>
             )}
             {song.youtube && (
@@ -55,10 +54,10 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
                 href={sanitizeUrl(song.youtube)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs px-2 py-1 rounded bg-red-100 text-red-800 hover:bg-red-200"
+                className="p-1 rounded bg-red-100 text-red-700 hover:bg-red-200"
                 title={t.watchOnYouTube}
               >
-                YouTube
+                <FaYoutube size={16} />
               </a>
             )}
             {song.sheetMusic && (
@@ -66,20 +65,19 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
                 href={sanitizeUrl(song.sheetMusic)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs px-2 py-1 rounded bg-blue-100 text-blue-800 hover:bg-blue-200"
+                className="p-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200"
                 title={t.viewSheetMusic}
               >
-                {t.viewSheetMusic}
+                <FaMusic size={16} />
               </a>
             )}
           </div>
         </div>
 
-        {/* Botones de acciones */}
+        {/* Acciones */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => onShowDetail && onShowDetail(song)}
-
             className="p-2 text-gray-600 hover:text-black transition-colors"
             title={t.viewDetails}
           >
@@ -90,7 +88,7 @@ export default function SongCard({ song, onToggleSelect, onShowDetail, currentLa
           </button>
 
           <button
-            onClick={() => onToggleSelect?.(song.id)}
+            onClick={() => onToggleSelect && onToggleSelect(song.id)}
             className="p-2 rounded-full bg-yellow-400 text-yellow-800"
             title={t.deselectSong}
           >
