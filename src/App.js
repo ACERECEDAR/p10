@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
 import SongCard from './components/SongCard';
 import SimpleSongCard from './components/SimpleSongCard';
@@ -6,6 +7,15 @@ import SongSearch from './components/SongSearch';
 import SongDetailModal from './components/SongDetailModal';
 import LanguageFilter from './components/LanguageFilter';
 import translations from './utils/translations';
+
+// Convierte "VIENEN CON ALEGRÍA" -> "Vienen Con Alegría"
+const toTitleCase = (str) =>
+  String(str ?? '')
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
 
 const App = () => {
   // Estados principales
@@ -25,7 +35,7 @@ const App = () => {
     'Todos',
     'Entrada',
     'Penitencia',
-    'Gloria', // Nueva categoría
+    'Gloria',
     'Aleluya',
     'Credo',
     'Ofertorio',
@@ -59,30 +69,57 @@ const App = () => {
     fetch('https://sheetdb.io/api/v1/vvgqm7l6rkuds')
       .then((res) => res.json())
       .then((data) => {
-        // Normalizamos por si las columnas usan otros nombres
-       const toTitleCase = (str) =>
-  String(str ?? '')
-    .toLowerCase()
-    .replace(/\b\w/g, (char) => char.toUpperCase());
+        // ⚠️ IMPORTANTE: ...row PRIMERO, y luego nuestros campos calculados
+        const normalized = (Array.isArray(data) ? data : []).map((row, idx) => {
+          const originalTitle = row.title || row.titulo || row.name || 'Sin título';
+          const displayTitle  = toTitleCase(originalTitle);
 
-const normalized = (Array.isArray(data) ? data : []).map((row, idx) => ({
-  id: row.id || row.ID || idx + 1,
-  title: toTitleCase(row.title || row.titulo || row.name || 'Sin título'),
-  category: row.category || row.categoria || 'Otro',
-  language: row.language || row.idioma || 'Español',
-          selected:
-            row.selected === true ||
-            row.selected === 'TRUE' ||
-            row.seleccionado === 'TRUE' ||
-            false,
-             spotify: row.spotify || row.spotify_link || row.Spotify || row.link_spotify || '',
-  youtube: row.youtube || row.youtube_link || row.YouTube || row.link_youtube || '',
-  sheetMusic:
-    row.sheetMusic || row.sheet_music || row.partitura || row.partition ||
-    row.score || row.pdf_url || row.sheet || '',
+          return {
+            // 1) Todo lo que venga de la hoja
+            ...row,
 
-          ...row
-        }));
+            // 2) Lo que queremos asegurar/normalizar (NO será pisado)
+            id: row.id || row.ID || idx + 1,
+
+            // Guardamos el original y el “bonito”
+            originalTitle,
+            title: displayTitle,
+            displayTitle,
+
+            category: row.category || row.categoria || 'Otro',
+            language: row.language || row.idioma || 'Español',
+
+            selected:
+              row.selected === true ||
+              row.selected === 'TRUE' ||
+              row.seleccionado === 'TRUE' ||
+              false,
+
+            // Enlaces normalizados (cubrimos varias variantes de nombre de columna)
+            spotify:
+              row.spotify ||
+              row.spotify_link ||
+              row.Spotify ||
+              row.link_spotify ||
+              '',
+            youtube:
+              row.youtube ||
+              row.youtube_link ||
+              row.YouTube ||
+              row.link_youtube ||
+              '',
+            sheetMusic:
+              row.sheetMusic ||
+              row.sheet_music ||
+              row.partitura ||
+              row.partition ||
+              row.score ||
+              row.pdf_url ||
+              row.sheet ||
+              '',
+          };
+        });
+
         setSongsList(normalized);
       })
       .catch((err) => {
@@ -166,8 +203,6 @@ const normalized = (Array.isArray(data) ? data : []).map((row, idx) => ({
         {/* Buscador */}
         <div className="mb-4">
           <SongSearch onSearch={handleSearch} currentLanguage={currentLanguage} />
-
-
         </div>
 
         {/* Filtros */}
@@ -189,7 +224,7 @@ const normalized = (Array.isArray(data) ? data : []).map((row, idx) => ({
         {/* Pestañas de categorías */}
         <div className="mb-8">
           <SongFilter
-            categories={categories}           
+            categories={categories}
             onFilterChange={handleFilterChange}
             currentLanguage={currentLanguage}
           />
@@ -220,30 +255,29 @@ const normalized = (Array.isArray(data) ? data : []).map((row, idx) => ({
         {/* Lista de cantos */}
         <div className="grid gap-4">
           {filteredSongs.length > 0 ? (
-  filteredSongs.map((song) =>
-    song.selected ? (
-      <SongCard
-  key={song.id}
-  song={song}
-  onToggleSelect={toggleSongSelection}
-  onShowDetail={() => handleShowDetail(song)}
-  currentLanguage={currentLanguage}
-/>
-    ) : (
-      <SimpleSongCard
-        key={song.id}
-        song={song}
-        onToggleSelect={toggleSongSelection}
-        onShowDetail={() => handleShowDetail(song)}
-        showCategory={activeCategory === 'Todos'}
-        currentLanguage={currentLanguage}
-      />
-    )
-  )
-) : (
-  <p>No hay cantos disponibles.</p>
-)}
-
+            filteredSongs.map((song) =>
+              song.selected ? (
+                <SongCard
+                  key={song.id}
+                  song={song}
+                  onToggleSelect={toggleSongSelection}
+                  onShowDetail={() => handleShowDetail(song)}
+                  currentLanguage={currentLanguage}
+                />
+              ) : (
+                <SimpleSongCard
+                  key={song.id}
+                  song={song}
+                  onToggleSelect={toggleSongSelection}
+                  onShowDetail={() => handleShowDetail(song)}
+                  showCategory={activeCategory === 'Todos'}
+                  currentLanguage={currentLanguage}
+                />
+              )
+            )
+          ) : (
+            <p>{t.noSongs || 'No hay cantos disponibles.'}</p>
+          )}
         </div>
       </div>
 
