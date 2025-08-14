@@ -195,15 +195,16 @@ const App = () => {
         </div>
 
         {/* Portada */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-8 text-center">
-  <h1 
-    className="text-5xl font-extrabold text-gray-900 mb-4 px-4 py-2 rounded" 
-    style={{ backgroundColor: '#f5e6b3' }}
-  >
+        <div 
+  className="rounded-xl shadow-lg p-8 mb-8 text-center" 
+  style={{ backgroundColor: '#f5e6b3' }}
+>
+  <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
     {t.appTitle}
   </h1>
   <p className="text-xl text-gray-700">{t.appSubtitle}</p>
 </div>
+
 
 
         {/* Buscador */}
